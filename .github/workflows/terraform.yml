@@ -1,0 +1,99 @@
+# GitHub Actions workflow for OIDC-based Terraform plan/apply.
+#
+# This workflow authenticates to AWS using GitHub OIDC (no long-lived keys).
+# It runs `terraform plan` on PRs and runs `terraform apply` on pushes to respective branch
+
+name: Terraform
+
+on:
+  pull_request:
+    paths:
+      - "infra/**"
+  push:
+    branches:
+      - main
+    paths:
+      - "infra/**"
+
+permissions:
+  id-token: write   # required for OIDC
+
+jobs:
+  terraform-dev:
+    name: Terraform (dev)
+    if: github.actor == 'gchamb'
+    runs-on: ubuntu-latest
+    environment: dev
+    defaults:
+      run:
+        working-directory: infra/environments/dev
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{env.AWS_ACCOUNT_ID}}:role/github-action-deploy
+          aws-region: us-east-2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform-version: "1.11.*"
+
+      - name: Terraform init
+        run: terraform init
+
+      - name: Terraform fmt
+        run: terraform fmt -check
+
+      - name: Terraform validate
+        run: terraform validate
+
+      - name: Terraform plan
+        run: terraform plan 
+
+      - name: Terraform apply
+        if: github.event_name == 'push' && github.ref == 'refs/heads/development'
+        run: terraform apply -auto-approve 
+
+  terraform-prod:
+    name: Terraform (prod)
+    if: github.actor == 'gchamb'
+    needs: terraform-dev
+    runs-on: ubuntu-latest
+    environment: prod
+    defaults:
+      run:
+        working-directory: infra/environments/prod
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{env.AWS_ACCOUNT_ID}}:role/github-action-deploy
+          aws-region: us-east-2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform-version: "1.11.*"
+
+      - name: Terraform init
+        run: terraform init
+
+      - name: Terraform fmt
+        run: terraform fmt -check
+
+      - name: Terraform validate
+        run: terraform validate
+
+      - name: Terraform plan
+        run: terraform plan 
+
+      - name: Terraform apply
+        if: github.event_name == 'push' && github.ref == 'refs/heads/production'
+        run: terraform apply -auto-approve 
