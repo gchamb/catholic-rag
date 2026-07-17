@@ -11,7 +11,7 @@ resource "aws_iam_role_policy_attachment" "github_policy_attachment" {
   role       = module.github_oidc.role.name
   policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
 }
-
+ 
 resource "aws_iam_role_policy_attachment" "github_policy_attachment" {
   role       = module.github_oidc.role.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonS3FullAccess"
