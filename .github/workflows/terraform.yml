@@ -11,7 +11,8 @@ on:
       - "infra/**"
   push:
     branches:
-      - main
+      - development
+      - production
     paths:
       - "infra/**"
 
@@ -34,7 +35,7 @@ jobs:
       - name: Configure AWS credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::${{env.AWS_ACCOUNT_ID}}:role/github-action-deploy
+          role-to-assume: arn:aws:iam::${{ vars.AWS_ACCOUNT_ID }}:role/github-action-deploy
           aws-region: us-east-2
 
       - name: Setup Terraform
@@ -52,11 +53,11 @@ jobs:
         run: terraform validate
 
       - name: Terraform plan
-        run: terraform plan 
+        run: terraform plan
 
       - name: Terraform apply
         if: github.event_name == 'push' && github.ref == 'refs/heads/development'
-        run: terraform apply -auto-approve 
+        run: terraform apply -auto-approve
 
   terraform-prod:
     name: Terraform (prod)
@@ -74,7 +75,7 @@ jobs:
       - name: Configure AWS credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::${{env.AWS_ACCOUNT_ID}}:role/github-action-deploy
+          role-to-assume: arn:aws:iam::${{ vars.AWS_ACCOUNT_ID }}:role/github-action-deploy
           aws-region: us-east-2
 
       - name: Setup Terraform
@@ -92,8 +93,8 @@ jobs:
         run: terraform validate
 
       - name: Terraform plan
-        run: terraform plan 
+        run: terraform plan
 
       - name: Terraform apply
         if: github.event_name == 'push' && github.ref == 'refs/heads/production'
-        run: terraform apply -auto-approve 
+        run: terraform apply -auto-approve
