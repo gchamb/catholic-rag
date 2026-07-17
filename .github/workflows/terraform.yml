@@ -11,7 +11,8 @@ on:
       - "infra/**"
   push:
     branches:
-      - main
+      - development
+      - production
     paths:
       - "infra/**"
 

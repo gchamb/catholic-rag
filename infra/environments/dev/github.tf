@@ -2,7 +2,11 @@ module "github_oidc" {
   source    = "../../modules/oidc-providers/github"
   role_name = "github-action-deploy"
   allowed_git_refs = [
-    "repo:gchamb/catholic-rag:ref:refs/heads/development"
+    "repo:gchamb/catholic-rag:ref:refs/heads/development",
+    "repo:gchamb/catholic-rag:pull-request"
+  ]
+  allowed_github_actors = [
+    "gchamb"
   ]
 }
 
