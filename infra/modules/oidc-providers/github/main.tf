@@ -34,7 +34,12 @@ data "aws_iam_policy_document" "github_actions_trust" {
     condition {
       test     = "StringEquals"
       variable = "token.actions.githubusercontent.com:sub"
-      values   = var.allowed_git_refs
+      values   = var.allowed_subjects
+    }
+    condition {
+      test     = "StringEquals"
+      variable = "token.actions.githubusercontent.com:actor"
+      values   = var.allowed_github_actors
     }
   }
 }
