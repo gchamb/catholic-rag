@@ -4,9 +4,9 @@ variable "role_name" {
   type        = string
 }
 
-variable "allowed_git_refs" {
-  type = list(string)
-  description = "The list of Git refs that are allowed to assume the role"
+variable "allowed_subjects" {
+  type        = list(string)
+  description = "The list of OIDC `sub` claims allowed to assume the role (e.g. repo:OWNER/REPO:environment:NAME or repo:OWNER/REPO:ref:refs/heads/BRANCH)"
 }
 
 variable "allowed_github_actors" {

@@ -1,9 +1,10 @@
 module "github_oidc" {
   source    = "../../modules/oidc-providers/github"
   role_name = "github-action-deploy"
-  allowed_git_refs = [
-    "repo:gchamb/catholic-rag:ref:refs/heads/production",
-    "repo:gchamb/catholic-rag:pull-request"
+  # The workflow's `terraform-prod` job uses `environment: prod`, so the OIDC `sub`
+  # claim is `repo:gchamb/catholic-rag:environment:prod` — not a branch ref.
+  allowed_subjects = [
+    "repo:gchamb/catholic-rag:environment:prod"
   ]
   allowed_github_actors = [
     "gchamb"
