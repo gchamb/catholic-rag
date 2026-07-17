@@ -12,4 +12,4 @@ variable "allowed_subjects" {
 variable "allowed_github_actors" {
   type = list(string)
   description = "The list of GitHub actors that are allowed to assume the role"
-}
+} 
