@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "db:shell": "docker compose exec postgres psql -U postgres -d catholic_rag",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
