@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+@theme {
+  --color-parchment-50: #fbf7f0;
+  --color-parchment-100: #f5ecdd;
+  --color-parchment-200: #ece0c8;
+
+  --color-cardinal-50: #fdf2f2;
+  --color-cardinal-100: #fbe0e0;
+  --color-cardinal-300: #f0a3a3;
+  --color-cardinal-500: #c1121f;
+  --color-cardinal-600: #a00f1a;
+  --color-cardinal-700: #7a0c15;
+  --color-cardinal-900: #4a0710;
+
+  --color-gold-300: #e8c87a;
+  --color-gold-400: #d4af37;
+  --color-gold-500: #b8932b;
+  --color-gold-600: #957420;
+
+  --color-violet-liturgical-500: #5b2a83;
+  --color-violet-liturgical-700: #3f1d5e;
+
+  --font-serif: "Cormorant Garamond", "EB Garamond", Georgia, "Times New Roman", serif;
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: var(--color-parchment-50);
+  color: #2b1d12;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Subtle parchment texture via layered gradients */
+.parchment-bg {
+  background-color: var(--color-parchment-50);
+  background-image:
+    radial-gradient(circle at 20% 10%, rgba(212, 175, 55, 0.06), transparent 40%),
+    radial-gradient(circle at 80% 90%, rgba(193, 18, 31, 0.05), transparent 45%);
+}
+
+/* Thin gold scrollbar accent */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-gold-400) transparent;
+}
