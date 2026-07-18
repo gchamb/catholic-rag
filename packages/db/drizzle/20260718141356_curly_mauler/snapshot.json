@@ -1,20 +1,28 @@
 {
   "version": "8",
   "dialect": "postgres",
-  "id": "83016361-70d3-41ae-81ed-70dae43cd8b5",
+  "id": "cb4d0016-7bd7-490f-be15-16548bf9276e",
   "prevIds": [
     "00000000-0000-0000-0000-000000000000"
   ],
   "ddl": [
     {
       "values": [
-        "awaiting_approval",
         "scheduled",
         "running",
         "succeeded",
         "failed"
       ],
       "name": "chunking_job_status_enum",
+      "entityType": "enums",
+      "schema": "public"
+    },
+    {
+      "values": [
+        "awaiting_approval",
+        "approved"
+      ],
+      "name": "document_status_enum",
       "entityType": "enums",
       "schema": "public"
     },
@@ -67,7 +75,7 @@
       "typeSchema": "public",
       "notNull": true,
       "dimensions": 0,
-      "default": "'awaiting_approval'",
+      "default": "'scheduled'",
       "generated": null,
       "identity": null,
       "name": "status",
@@ -245,6 +253,19 @@
       "table": "document"
     },
     {
+      "type": "document_status_enum",
+      "typeSchema": "public",
+      "notNull": true,
+      "dimensions": 0,
+      "default": "'awaiting_approval'",
+      "generated": null,
+      "identity": null,
+      "name": "status",
+      "entityType": "columns",
+      "schema": "public",
+      "table": "document"
+    },
+    {
       "type": "timestamp with time zone",
       "typeSchema": null,
       "notNull": false,
@@ -256,6 +277,40 @@
       "entityType": "columns",
       "schema": "public",
       "table": "document"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "document_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "document",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "name": "chunking_job_document_id_document_id_fkey",
+      "entityType": "fks",
+      "schema": "public",
+      "table": "chunking_job"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "document_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "document",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "name": "chunks_document_id_document_id_fkey",
+      "entityType": "fks",
+      "schema": "public",
+      "table": "chunks"
     },
     {
       "columns": [
