@@ -10,5 +10,16 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@10.26.1"
+  "packageManager": "pnpm@10.26.1",
+  "dependencies": {
+    "@aws-sdk/client-s3": "catalog:",
+    "s3": "workspace:",
+    "@langchain/core": "^1.2.3",
+    "@langchain/textsplitters": "^1.0.1",
+    "@openrouter/sdk": "^0.13.66",
+    "db": "workspace:*",
+    "drizzle-orm": "catalog:",
+    "node-cron": "^4.6.0",
+    "pdf-parse": "^2.4.5"
+  }
 }
