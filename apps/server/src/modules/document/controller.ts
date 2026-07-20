@@ -1,5 +1,5 @@
 import { PutObjectCommand } from "@aws-sdk/client-s3";
-import { s3, DOCUMENT_BUCKET_NAME } from "../s3/client.js";
+import { s3, DOCUMENT_BUCKET_NAME } from "s3";
 import { db, documentTable } from "db";
 import { status } from "elysia";
 

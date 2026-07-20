@@ -1,5 +1,6 @@
 export * from './drizzle-instance.js';
 export * from './schema.js';
 export * from './relations.js';
+export * from './types.js'
 
 

@@ -23,7 +23,7 @@ export const chunkingJobTable = pgTable("chunking_job", {
   id: uuid("id").primaryKey().defaultRandom(),
   documentId: uuid("document_id").notNull().references(() => documentTable.id, { onDelete: "cascade" }),
   status: chunkingJobEnum("status").notNull().default("scheduled"),
-  createdAt: timestamp("created_at", { withTimezone: true }),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
   approvedAt: timestamp("approved_at", { withTimezone: true }),
   startedAt: timestamp("started_at", { withTimezone: true }),
   completedAt: timestamp("completed_at", { withTimezone: true }),
@@ -38,5 +38,5 @@ export const chunks = pgTable("chunks", {
   embedding: vector({
     dimensions: 1536 // matches the model
   }),
-  createdAt: timestamp("created_at", { withTimezone: true }),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
 });

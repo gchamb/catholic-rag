@@ -20,11 +20,12 @@
     "@elysia/static": "^1.4.11",
     "@sinclair/typebox": "^0.34.52",
     "db": "workspace:*",
+    "s3": "workspace:*",
     "elysia": "^1.4.29",
     "openapi-types": "^12.1.3"
   },
   "devDependencies": {
-    "@types/node": "^26.1.1",
+    "@types/node": "catalog:",
     "tsx": "catalog:",
     "typescript": "catalog:"
   }
