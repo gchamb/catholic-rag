@@ -118,6 +118,11 @@ export class IngestionWorker {
 
       Logger.info("processable jobs", { jobCount: claimedJobs.length })
 
+      if (claimedJobs.length === 0) {
+        Logger.info("There are no jobs...returning.");
+        return;
+      }
+
       const settledJobs = await Promise.allSettled(
         claimedJobs.map(
           (job) => this.processJob(job)

@@ -5,7 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "dev": "tsx --env-file=.env ./src/main.ts"
   },
   "keywords": [],
   "author": "",
@@ -21,5 +23,9 @@
     "drizzle-orm": "catalog:",
     "node-cron": "^4.6.0",
     "pdf-parse": "^2.4.5"
+  },
+  "devDependencies": {
+    "tsx": "catalog:",
+    "typescript": "catalog:"
   }
 }

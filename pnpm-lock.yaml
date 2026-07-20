@@ -141,6 +141,13 @@ importers:
       s3:
         specifier: 'workspace:'
         version: link:../../packages/s3
+    devDependencies:
+      tsx:
+        specifier: 'catalog:'
+        version: 4.23.1
+      typescript:
+        specifier: 'catalog:'
+        version: 7.0.2
 
   packages/db:
     dependencies:
